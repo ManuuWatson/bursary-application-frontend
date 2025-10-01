@@ -1,0 +1,74 @@
+/* Smooth underline animation for navbar links */
+.custom-link {
+  position: relative;
+  color: #ffffff;
+  transition: color 0.3s ease-in-out;
+}
+
+.custom-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff; 
+  transition: width 0.3s ease-in-out;
+}
+
+/* Animate underline ONLY for non-dropdown links */
+.nav-item:not(.dropdown) .custom-link:hover::after,
+.nav-item:not(.dropdown) .custom-link.active::after {
+  width: 100%;
+}
+
+/* Disable underline for dropdown parent */
+.nav-item.dropdown .custom-link::after {
+  display: none !important;
+}
+
+.custom-link.active {
+  font-weight: bold;
+  color: #ffffff !important;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  transition: background 0.2s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+/* Dropdown fade effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Active link styling */
+.navbar .nav-link.active {
+  font-weight: 600;
+  color: #ffffff !important; /* gold highlight */
+  text-decoration: none !important;
+}
+
+/* Active dropdown child highlight */
+.nav-item.dropdown .dropdown-item.active {
+  font-weight: 600;
+  color: #ffffff !important;
+}
