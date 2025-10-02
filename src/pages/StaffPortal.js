@@ -1,16 +1,37 @@
-// ✅ StaffPortal.js (Modern & Responsive)
-import React from "react";
+// ✅ StaffPortal.js (Protected Staff Dashboard)
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function StaffPortal() {
+  const navigate = useNavigate();
+  const [staffInfo, setStaffInfo] = useState(null);
+
+  useEffect(() => {
+    // ✅ Check if staff is logged in
+    const token = localStorage.getItem("staffToken");
+    const staff = localStorage.getItem("staffInfo");
+
+    if (!token || !staff) {
+      // 🚨 Not logged in → redirect to login
+      navigate("/staff-login");
+    } else {
+      setStaffInfo(JSON.parse(staff));
+    }
+  }, [navigate]);
+
+  if (!staffInfo) {
+    return <p className="text-center mt-5">Checking authentication...</p>;
+  }
+
   return (
     <>
       <Header />
       <div className="container my-5">
         <h2 className="fw-bold text-center text-primary mb-4">
-          👨‍💼 Staff Dashboard
+          👨‍💼 Welcome {staffInfo.full_name}
         </h2>
 
         {/* Dashboard Stats */}
